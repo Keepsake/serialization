@@ -1,0 +1,9 @@
+{
+  "dependencies": [
+    "gtest",
+    "benchmark",
+    "yas",
+    "ks-cmake-helpers",
+    "ks-log"
+  ]
+}
