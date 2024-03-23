@@ -7,6 +7,9 @@ option(BUILD_BENCHMARK "Enable benchmark build" ON)
 find_package(KsCMakeHelpers CONFIG REQUIRED)
 find_package(KsLog CONFIG REQUIRED)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 ks_setup()
 
 add_subdirectory(src)
