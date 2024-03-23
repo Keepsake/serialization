@@ -6,64 +6,33 @@
       "binaryDir": "${sourceDir}/out/",
       "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
       "generator": "Ninja Multi-Config"
-    },
-    {
-      "name": "ci",
-      "inherits": "default",
-      "generator": "Ninja",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_CXX_FLAGS_INIT": "--coverage -fsanitize=address"
-      }
     }
   ],
   "buildPresets": [
     {
-      "name": "release",
-      "displayName": "Release",
-      "configuration": "Release",
-      "configurePreset": "default"
-    },
-    {
-      "name": "debug",
-      "displayName": "Debug",
-      "configuration": "Debug",
-      "configurePreset": "default"
-    },
-    {
-      "name": "ci",
-      "displayName": "CI",
-      "configuration": "Debug",
-      "configurePreset": "ci",
-      "targets": [
-        "all",
-        "test",
-        "ExperimentalCoverage"
-      ]
+      "name": "default",
+      "configurePreset": "default",
+      "configuration": "Debug"
     }
   ],
   "testPresets": [
     {
-      "name": "release",
-      "configurePreset": "default",
-      "configuration": "Release",
+      "name": "base",
+      "hidden": true,
       "output": {
         "outputOnFailure": true
-      }
+      },
+      "configuration": "Debug"
     },
     {
-      "name": "debug",
-      "configurePreset": "default",
-      "configuration": "Debug",
-      "output": {
-        "outputOnFailure": true
-      }
+      "name": "default",
+      "inherits": "base",
+      "configurePreset": "default"
     }
-
   ],
   "workflowPresets": [
     {
-      "name": "release",
+      "name": "default",
       "steps": [
         {
           "type": "configure",
@@ -71,41 +40,11 @@
         },
         {
           "type": "build",
-          "name": "release"
-        },
-        {
-          "type": "test",
-          "name": "release"
-        }
-      ]
-    },
-    {
-      "name": "debug",
-      "steps": [
-        {
-          "type": "configure",
           "name": "default"
         },
         {
-          "type": "build",
-          "name": "debug"
-        },
-        {
           "type": "test",
-          "name": "debug"
-        }
-      ]
-    },
-    {
-      "name": "ci",
-      "steps": [
-        {
-          "type": "configure",
-          "name": "ci"
-        },
-        {
-          "type": "build",
-          "name": "ci"
+          "name": "default"
         }
       ]
     }

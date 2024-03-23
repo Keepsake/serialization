@@ -29,16 +29,9 @@ target_link_libraries(
     KsLog::ks-log
 )
 
-target_compile_features(
-  ks-serialization
-  INTERFACE
-    cxx_std_20
-)
-
 ks_install(
   TARGETS
     ks-serialization
   DEPENDENCIES
     KsLog
 )
-
