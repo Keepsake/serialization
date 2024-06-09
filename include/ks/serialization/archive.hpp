@@ -10,7 +10,9 @@
 
 #include <ks/log.hpp>
 
-namespace ks::serialization {
+#include <ks/serialization/detail/namespace.hpp>
+
+KS_SERIALIZATION_NAMESPACE_BEGIN
 
 class oarchive final
 {
@@ -60,4 +62,4 @@ private:
   data_type::iterator end_;
 };
 
-} // namespace ks::serialization
+KS_SERIALIZATION_NAMESPACE_END

@@ -8,8 +8,9 @@
 #include <vector>
 
 #include <ks/serialization/archive.hpp>
+#include <ks/serialization/detail/namespace.hpp>
 
-namespace ks::serialization {
+KS_SERIALIZATION_NAMESPACE_BEGIN
 
 template<typename T>
 struct serializer final
@@ -50,4 +51,4 @@ load(std::span<std::byte const> buffer, auto& object) noexcept
   serialize(in, object);
 }
 
-} // namespace ks::serialization
+KS_SERIALIZATION_NAMESPACE_END

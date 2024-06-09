@@ -3,10 +3,11 @@
 #include <array>
 #include <ranges>
 
+#include <ks/serialization/detail/namespace.hpp>
 #include <ks/serialization/detail/serialize_range.hpp>
 #include <ks/serialization/serialize.hpp>
 
-namespace ks::serialization {
+KS_SERIALIZATION_NAMESPACE_BEGIN
 
 template<std::ranges::contiguous_range R>
 struct serializer<R> final
@@ -26,4 +27,4 @@ struct serializer<std::array<T, N>> final
   }
 };
 
-} // namespace ks::serialization
+KS_SERIALIZATION_NAMESPACE_END

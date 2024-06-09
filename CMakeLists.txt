@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.23)
 
-project(KsSerialization LANGUAGES CXX)
+project(KsSerialization VERSION 1 LANGUAGES CXX)
 
 option(BUILD_BENCHMARK "Enable benchmark build" ON)
 
@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 ks_setup()
 
 add_subdirectory(src)
+add_subdirectory(include)
 
 if(BUILD_TESTING)
   find_package(GTest CONFIG REQUIRED)

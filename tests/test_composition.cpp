@@ -17,46 +17,18 @@ TEST(SerializationTest, CanSerializeCompositionOfSequences)
   using c = std::vector<b>;
 
   c const expected{
-    b{
-        a{
+    {
+        {
             "A",
             "B",
             "C",
             "D",
         },
-        a{
+        {
             "E",
             "F",
             "G",
             "H",
-        },
-    },
-    b{
-        a{
-            "I",
-            "J",
-            "K",
-            "L",
-        },
-        a{
-            "M",
-            "N",
-            "O",
-            "P",
-        },
-    },
-    b{
-        a{
-            "Q",
-            "R",
-            "S",
-            "T",
-        },
-        a{
-            "U",
-            "V",
-            "W",
-            "X",
         },
     },
   };
