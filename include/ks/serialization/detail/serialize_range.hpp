@@ -7,16 +7,19 @@
 #include <type_traits>
 
 #include <ks/serialization/archive.hpp>
+#include <ks/serialization/as_bytes.hpp>
+#include <ks/serialization/detail/namespace.hpp>
 #include <ks/serialization/serialize.hpp>
 
-namespace ks::serialization::detail {
+KS_SERIALIZATION_NAMESPACE_BEGIN
+namespace detail {
 
 template<std::ranges::contiguous_range R>
 constexpr void
 serialize_range(oarchive& archive, R const& range) noexcept
 {
   if constexpr (std::is_trivially_copyable_v<std::ranges::range_value_t<R>>)
-    archive.save(std::as_bytes(std::span{ range }));
+    archive.save(as_bytes(range));
   else
     for (auto const& v : range)
       serialize(archive, v);
@@ -27,7 +30,7 @@ constexpr void
 serialize_range(iarchive& archive, R& range) noexcept
 {
   if constexpr (std::is_trivially_copyable_v<std::ranges::range_value_t<R>>)
-    archive.load(std::as_writable_bytes(std::span{ range }));
+    archive.load(as_writable_bytes(range));
   else
     for (auto& v : range)
       serialize(archive, v);
@@ -52,4 +55,5 @@ serialize_dynamic_range(iarchive& archive, R& range) noexcept
   serialize_range(archive, range);
 }
 
-} // namespace ks::serialization::detail
+} // namespace detail
+KS_SERIALIZATION_NAMESPACE_END
