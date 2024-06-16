@@ -19,6 +19,7 @@ target_sources(
       FILES
         ${PROJECT_SOURCE_DIR}/include/ks/serialization.hpp
         ${PROJECT_SOURCE_DIR}/include/ks/serialization/archive.hpp
+        ${PROJECT_SOURCE_DIR}/include/ks/serialization/as_bytes.hpp
         ${PROJECT_SOURCE_DIR}/include/ks/serialization/detail/serialize_range.hpp
         ${PROJECT_BINARY_DIR}/include/ks/serialization/detail/namespace.hpp
         ${PROJECT_SOURCE_DIR}/include/ks/serialization/serialize.hpp
