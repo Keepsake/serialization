@@ -8,10 +8,10 @@
 
 #include <ks/serialization/archive.hpp>
 #include <ks/serialization/as_bytes.hpp>
-#include <ks/serialization/detail/namespace.hpp>
 #include <ks/serialization/serialize.hpp>
 
-KS_SERIALIZATION_NAMESPACE_BEGIN
+namespace ks::serialization {
+inline namespace abiv1 {
 namespace detail {
 
 template<std::ranges::contiguous_range R>
@@ -56,4 +56,5 @@ serialize_dynamic_range(iarchive& archive, R& range) noexcept
 }
 
 } // namespace detail
-KS_SERIALIZATION_NAMESPACE_END
+} // namespace abiv1
+} // namespace ks::serialization

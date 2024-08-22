@@ -8,11 +8,10 @@
 #include <span>
 #include <vector>
 
-#include <ks/log.hpp>
+#include <ks/fatal.hpp>
 
-#include <ks/serialization/detail/namespace.hpp>
-
-KS_SERIALIZATION_NAMESPACE_BEGIN
+namespace ks::serialization {
+inline namespace abiv1 {
 
 class oarchive final
 {
@@ -51,7 +50,7 @@ public:
   constexpr void load(std::span<std::byte, N> bytes) noexcept
   {
     if (bytes.size() > std::distance(begin_, end_)) [[unlikely]]
-      log::fatal("deserialization buffer underrun");
+      fatal::panic("deserialization buffer underrun");
 
     std::copy_n(begin_, bytes.size(), bytes.begin());
     std::advance(begin_, bytes.size());
@@ -62,4 +61,5 @@ private:
   data_type::iterator end_;
 };
 
-KS_SERIALIZATION_NAMESPACE_END
+} // namespace abiv1
+} // namespace ks::serialization

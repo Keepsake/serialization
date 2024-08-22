@@ -4,9 +4,8 @@
 #include <span>
 #include <type_traits>
 
-#include <ks/serialization/detail/namespace.hpp>
-
-KS_SERIALIZATION_NAMESPACE_BEGIN
+namespace ks::serialization {
+inline namespace abiv1 {
 
 template<std::ranges::contiguous_range R>
 constexpr auto
@@ -26,4 +25,5 @@ as_writable_bytes(R& range)
   return std::as_writable_bytes(std::span{ range });
 }
 
-KS_SERIALIZATION_NAMESPACE_END
+} // namespace abiv1
+} // namespace ks::serialization

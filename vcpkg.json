@@ -4,6 +4,6 @@
     "benchmark",
     "yas",
     "ks-cmake-helpers",
-    "ks-log"
+    "ks-fatal"
   ]
 }

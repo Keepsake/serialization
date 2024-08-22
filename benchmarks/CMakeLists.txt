@@ -1,45 +1,25 @@
-add_executable(
-  bench-yas-serialization
-  bench_yas_serialization.cpp
-)
+if(KS_SERIALIZATION_BUILD_BENCHMARK)
+  add_executable(
+    ks-serialization-bench-yas
+    bench_yas_serialization.cpp
+  )
 
-target_link_libraries(
-  bench-yas-serialization
-  PRIVATE
-    benchmark::benchmark_main
-)
+  target_link_libraries(
+    ks-serialization-bench-yas
+    PRIVATE
+      benchmark::benchmark_main
+      Yas::yas
+  )
 
-target_compile_features(
-  bench-yas-serialization
-  PRIVATE 
-    cxx_std_20
-)
+  add_executable(
+    ks-serialization-bench-ks
+    bench_ks_serialization.cpp
+  )
 
-find_path(
-  YAS_INCLUDE_DIRS
-  "yas/serialize.hpp"
-)
-
-target_include_directories(
-  bench-yas-serialization
-  PRIVATE
-    ${YAS_INCLUDE_DIRS}
-)
-
-add_executable(
-  bench-ks-serialization
-  bench_ks_serialization.cpp
-)
-
-target_link_libraries(
-  bench-ks-serialization
-  PRIVATE
-    benchmark::benchmark_main
-    ks-serialization
-)
-
-target_compile_features(
-  bench-ks-serialization
-  PRIVATE 
-    cxx_std_20
-)
+  target_link_libraries(
+    ks-serialization-bench-ks
+    PRIVATE
+      benchmark::benchmark_main
+      ${PROJECT_NAME}::ks-serialization
+  )
+endif()
