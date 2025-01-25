@@ -3,7 +3,6 @@
     "gtest",
     "benchmark",
     "yas",
-    "ks-cmake-helpers",
-    "ks-fatal"
+    "ks-cmake-helpers"
   ]
 }

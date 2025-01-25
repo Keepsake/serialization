@@ -110,5 +110,5 @@ TEST(SerializationTest, CanDetectCorruptedArchive)
   std::int8_t actual{};
 
   std::vector<std::byte> buffer;
-  ASSERT_DEATH(s::load(buffer, actual), "deserialization buffer underrun");
+  ASSERT_EQ(s::load(buffer, actual), s::error::buffer_underrun);
 }

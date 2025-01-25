@@ -9,6 +9,7 @@ include(cmake/dependencies.cmake)
 include(cmake/project_setup.cmake)
 
 add_subdirectory(src)
+add_subdirectory(include)
 add_subdirectory(tests)
 add_subdirectory(benchmarks)
 

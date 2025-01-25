@@ -22,9 +22,9 @@ struct type_1 final
 template<>
 struct s::serializer<type_1> final
 {
-  constexpr void operator()(auto& archive, auto& v) const noexcept
+  std::error_code operator()(auto& archive, auto& v) const noexcept
   {
-    serialize(archive, v.a, v.b);
+    return serialize(archive, v.a, v.b);
   }
 };
 
@@ -40,9 +40,9 @@ struct type_2 final
 template<>
 struct s::serializer<type_2> final
 {
-  constexpr void operator()(auto& archive, auto& v) const noexcept
+  std::error_code operator()(auto& archive, auto& v) const noexcept
   {
-    serialize(archive, v.a, v.b);
+    return serialize(archive, v.a, v.b);
   }
 };
 

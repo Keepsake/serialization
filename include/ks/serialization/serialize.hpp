@@ -4,6 +4,7 @@
 
 #include <ranges>
 #include <span>
+#include <system_error>
 #include <type_traits>
 #include <vector>
 
@@ -15,40 +16,52 @@ inline namespace abiv1 {
 template<typename T>
 struct serializer final
 {
-  constexpr void operator()(oarchive& archive, T const& object) const noexcept
+  std::error_code operator()(oarchive& archive, T const& object) const noexcept
   {
     static_assert(std::is_trivially_copyable_v<T>,
                   "missing ks::serialization::serializer<> specialization");
-    archive.save(std::as_bytes(std::span<T const, 1U>{ &object, 1U }));
+    return archive.save(std::as_bytes(std::span<T const, 1U>{ &object, 1U }));
   }
 
-  constexpr void operator()(iarchive& archive, T& object) const noexcept
+  std::error_code operator()(iarchive& archive, T& object) const noexcept
   {
     static_assert(std::is_trivially_copyable_v<T>,
                   "missing ks::serialization::serializer<> specialization");
-    archive.load(std::as_writable_bytes(std::span<T, 1U>{ &object, 1U }));
+    return archive.load(
+        std::as_writable_bytes(std::span<T, 1U>{ &object, 1U }));
   }
 };
 
-template<typename... Args>
-constexpr void
-serialize(auto& archive, Args&... value) noexcept
+template<typename Arg, typename... Args>
+std::error_code
+serialize(auto& archive, Arg& value, Args&... values) noexcept
 {
-  (serializer<std::decay_t<Args>>{}(archive, value), ...);
+  if (auto failure = serializer<std::decay_t<Arg>>{}(archive, value); failure)
+      [[unlikely]]
+    return failure;
+
+  return serialize(archive, values...);
 }
 
-constexpr void
+template<typename Arg>
+std::error_code
+serialize(auto& archive, Arg& value) noexcept
+{
+  return serializer<std::decay_t<Arg>>{}(archive, value);
+}
+
+std::error_code
 save(std::vector<std::byte>& buffer, auto const& object) noexcept
 {
   oarchive out{ buffer };
-  serialize(out, object);
+  return serialize(out, object);
 }
 
-constexpr void
+std::error_code
 load(std::span<std::byte const> buffer, auto& object) noexcept
 {
   iarchive in{ buffer };
-  serialize(in, object);
+  return serialize(in, object);
 }
 
 } // namespace abiv1

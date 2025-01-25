@@ -3,8 +3,6 @@
 #include <cstddef>
 
 #include <ranges>
-#include <span>
-#include <type_traits>
 
 #include <ks/serialization/archive.hpp>
 #include <ks/serialization/as_bytes.hpp>
@@ -14,45 +12,58 @@ namespace ks::serialization {
 inline namespace abiv1 {
 namespace detail {
 
-template<std::ranges::contiguous_range R>
-constexpr void
-serialize_range(oarchive& archive, R const& range) noexcept
+std::error_code
+serialize_range(oarchive& archive,
+                trivially_serializable_range auto const& range)
 {
-  if constexpr (std::is_trivially_copyable_v<std::ranges::range_value_t<R>>)
-    archive.save(as_bytes(range));
-  else
-    for (auto const& v : range)
-      serialize(archive, v);
+  return archive.save(as_bytes(range));
 }
 
-template<std::ranges::contiguous_range R>
-constexpr void
-serialize_range(iarchive& archive, R& range) noexcept
+std::error_code
+serialize_range(iarchive& archive, trivially_serializable_range auto& range)
 {
-  if constexpr (std::is_trivially_copyable_v<std::ranges::range_value_t<R>>)
-    archive.load(as_writable_bytes(range));
-  else
-    for (auto& v : range)
-      serialize(archive, v);
+  return archive.load(as_writable_bytes(range));
 }
 
-template<std::ranges::contiguous_range R>
-constexpr void
-serialize_dynamic_range(oarchive& archive, R const& range) noexcept
+std::error_code
+serialize_range(oarchive& archive, std::ranges::range auto const& range)
+{
+  for (auto const& v : range)
+    if (auto failure = serialize(archive, v); failure) [[unlikely]]
+      return failure;
+
+  return {};
+}
+
+std::error_code
+serialize_range(iarchive& archive, std::ranges::range auto& range)
+{
+  for (auto& v : range)
+    if (auto failure = serialize(archive, v); failure)
+      return failure;
+
+  return {};
+}
+
+std::error_code
+serialize_dynamic_range(oarchive& archive, std::ranges::range auto const& range)
 {
   std::size_t const size = std::ranges::size(range);
-  serialize(archive, size);
-  serialize_range(archive, range);
+  if (auto failure = serialize(archive, size); failure)
+    return failure;
+
+  return serialize_range(archive, range);
 }
 
-template<std::ranges::contiguous_range R>
-constexpr void
-serialize_dynamic_range(iarchive& archive, R& range) noexcept
+std::error_code
+serialize_dynamic_range(iarchive& archive, std::ranges::range auto& range)
 {
   std::size_t size;
-  serialize(archive, size);
+  if (auto failure = serialize(archive, size); failure)
+    return failure;
+
   range.resize(size);
-  serialize_range(archive, range);
+  return serialize_range(archive, range);
 }
 
 } // namespace detail

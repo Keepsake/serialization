@@ -4,6 +4,12 @@ if(KS_SERIALIZATION_BUILD_BENCHMARK)
     bench_yas_serialization.cpp
   )
 
+  target_compile_features(
+    ks-serialization-bench-yas
+    PRIVATE
+      cxx_std_23
+  )
+
   target_link_libraries(
     ks-serialization-bench-yas
     PRIVATE

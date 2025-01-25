@@ -1,12 +1,14 @@
 if(KS_SERIALIZATION_BUILD_TEST)
   add_executable(ks-serialization-unit-test
     test_array.cpp
+    test_as_bytes.cpp
     test_composition.cpp
     test_custom.cpp
+    test_error.cpp
     test_integer.cpp
     test_string.cpp
+    test_variant.cpp
     test_vector.cpp
-    test_as_bytes.cpp
   )
 
   target_link_libraries(ks-serialization-unit-test

@@ -14,14 +14,14 @@
 template<>
 struct ks::serialization::serializer<my_struct> final
 {
-  constexpr void operator()(auto& archive, auto& value) const noexcept
+  std::error_code operator()(auto& archive, auto& value) const noexcept
   {
-    serialize(archive,
-              value.unsigned_integer,
-              value.signed_integer,
-              value.string,
-              value.strings_vector,
-              value.strings_array);
+    return serialize(archive,
+                     value.unsigned_integer,
+                     value.signed_integer,
+                     value.string,
+                     value.strings_vector,
+                     value.strings_array);
   }
 };
 

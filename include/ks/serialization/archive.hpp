@@ -3,12 +3,12 @@
 #include <cstddef>
 
 #include <algorithm>
-#include <array>
 #include <iterator>
 #include <span>
+#include <system_error>
 #include <vector>
 
-#include <ks/fatal.hpp>
+#include <ks/serialization/error.hpp>
 
 namespace ks::serialization {
 inline namespace abiv1 {
@@ -25,9 +25,10 @@ public:
   }
 
   template<std::size_t N>
-  constexpr void save(std::span<std::byte const, N> bytes) noexcept
+  std::error_code save(std::span<std::byte const, N> bytes) noexcept
   {
     data_.insert(data_.end(), bytes.begin(), bytes.end());
+    return {};
   }
 
 private:
@@ -47,13 +48,14 @@ public:
   }
 
   template<std::size_t N>
-  constexpr void load(std::span<std::byte, N> bytes) noexcept
+  std::error_code load(std::span<std::byte, N> bytes) noexcept
   {
     if (bytes.size() > std::distance(begin_, end_)) [[unlikely]]
-      fatal::panic("deserialization buffer underrun");
+      return error::buffer_underrun;
 
     std::copy_n(begin_, bytes.size(), bytes.begin());
     std::advance(begin_, bytes.size());
+    return {};
   }
 
 private:

@@ -2,11 +2,6 @@
 
 include(CMakePackageConfigHelpers)
 
-set(package_dependencies [[
-include(CMakeFindDependencyMacro)
-find_dependency(KsFatal 1.1.1 CONFIG)
-]])
-
 export(
   TARGETS ks-serialization
   FILE ${PROJECT_NAME}Targets.cmake

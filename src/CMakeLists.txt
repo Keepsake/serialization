@@ -1,33 +1,10 @@
-add_library(ks-serialization INTERFACE)
+add_library(ks-serialization
+  error.cpp
+)
+
+target_compile_features(ks-serialization
+  PUBLIC
+    cxx_std_23
+)
 
 add_library(${PROJECT_NAME}::ks-serialization ALIAS ks-serialization)
-
-target_include_directories(
-  ks-serialization
-  INTERFACE
-    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
-    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
-)
-
-target_sources(
-  ks-serialization
-  INTERFACE
-    FILE_SET headers
-      TYPE
-        HEADERS
-      BASE_DIRS
-        ${PROJECT_SOURCE_DIR}/include/
-      FILES
-        ${PROJECT_SOURCE_DIR}/include/ks/serialization.hpp
-        ${PROJECT_SOURCE_DIR}/include/ks/serialization/archive.hpp
-        ${PROJECT_SOURCE_DIR}/include/ks/serialization/as_bytes.hpp
-        ${PROJECT_SOURCE_DIR}/include/ks/serialization/detail/serialize_range.hpp
-        ${PROJECT_SOURCE_DIR}/include/ks/serialization/serialize.hpp
-        ${PROJECT_SOURCE_DIR}/include/ks/serialization/std.hpp
-)
-
-target_link_libraries(
-  ks-serialization
-  INTERFACE
-    KsFatal::ks-fatal
-)
