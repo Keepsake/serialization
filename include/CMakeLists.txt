@@ -7,6 +7,8 @@ generate_export_header(ks-serialization
 target_include_directories(
   ks-serialization
   PUBLIC
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>"
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
@@ -17,8 +19,8 @@ target_sources(
       TYPE
         HEADERS
       BASE_DIRS
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_BINARY_DIR}
+        "${CMAKE_CURRENT_SOURCE_DIR}"
+        "${CMAKE_CURRENT_BINARY_DIR}"
       FILES
         "${CMAKE_CURRENT_BINARY_DIR}/ks/serialization/detail/symbol_visibility.hpp"
         ks/serialization.hpp
