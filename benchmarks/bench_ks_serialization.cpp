@@ -1,8 +1,4 @@
-#include <cstdint>
-
-#include <array>
 #include <stdexcept>
-#include <string>
 #include <vector>
 
 #include <benchmark/benchmark.h>
@@ -48,8 +44,8 @@ bench_ks(benchmark::State& state)
   for (auto _ : state) {
     buffer.clear();
 
-    ks::serialization::save(buffer, origin);
-    ks::serialization::load(buffer, actual);
+    std::ignore = ks::serialization::save(buffer, origin);
+    std::ignore = ks::serialization::load(buffer, actual);
   }
 
   if (actual != origin)

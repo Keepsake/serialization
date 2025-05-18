@@ -1,6 +1,5 @@
 #include <cstddef>
 
-#include <array>
 #include <string>
 #include <vector>
 
@@ -59,8 +58,8 @@ TEST(SerializationTest, CanSerializeCustom)
   type_2 actual{};
 
   std::vector<std::byte> buffer;
-  s::save(buffer, expected);
-  s::load(buffer, actual);
+  ASSERT_FALSE(s::save(buffer, expected));
+  ASSERT_FALSE(s::load(buffer, actual));
 
   ASSERT_EQ(expected, actual);
 }

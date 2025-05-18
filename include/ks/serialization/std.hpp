@@ -1,6 +1,8 @@
 #pragma once
 
 #include <array>
+#include <cstdint>
+#include <limits>
 #include <ranges>
 #include <variant>
 

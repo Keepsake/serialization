@@ -2,7 +2,6 @@
 
 #include <cstddef>
 
-#include <ranges>
 #include <span>
 #include <system_error>
 #include <type_traits>

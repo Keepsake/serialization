@@ -16,8 +16,8 @@ TEST(SerializationTest, CanSerializeUnsignedInteger)
     std::uint8_t actual{};
 
     std::vector<std::byte> buffer;
-    s::save(buffer, expected);
-    s::load(buffer, actual);
+    ASSERT_FALSE(s::save(buffer, expected));
+    ASSERT_FALSE(s::load(buffer, actual));
 
     ASSERT_EQ(buffer.size(), sizeof(expected));
     ASSERT_EQ(expected, actual);
@@ -27,8 +27,8 @@ TEST(SerializationTest, CanSerializeUnsignedInteger)
     std::uint16_t actual{};
 
     std::vector<std::byte> buffer;
-    s::save(buffer, expected);
-    s::load(buffer, actual);
+    ASSERT_FALSE(s::save(buffer, expected));
+    ASSERT_FALSE(s::load(buffer, actual));
 
     ASSERT_EQ(buffer.size(), sizeof(expected));
     ASSERT_EQ(expected, actual);
@@ -38,8 +38,8 @@ TEST(SerializationTest, CanSerializeUnsignedInteger)
     std::uint32_t actual{};
 
     std::vector<std::byte> buffer;
-    s::save(buffer, expected);
-    s::load(buffer, actual);
+    ASSERT_FALSE(s::save(buffer, expected));
+    ASSERT_FALSE(s::load(buffer, actual));
 
     ASSERT_EQ(buffer.size(), sizeof(expected));
     ASSERT_EQ(expected, actual);
@@ -49,8 +49,8 @@ TEST(SerializationTest, CanSerializeUnsignedInteger)
     std::uint64_t actual{};
 
     std::vector<std::byte> buffer;
-    s::save(buffer, expected);
-    s::load(buffer, actual);
+    ASSERT_FALSE(s::save(buffer, expected));
+    ASSERT_FALSE(s::load(buffer, actual));
 
     ASSERT_EQ(buffer.size(), sizeof(expected));
     ASSERT_EQ(expected, actual);
@@ -64,8 +64,8 @@ TEST(SerializationTest, CanSerializeSignedInteger)
     std::int8_t actual{};
 
     std::vector<std::byte> buffer;
-    s::save(buffer, expected);
-    s::load(buffer, actual);
+    ASSERT_FALSE(s::save(buffer, expected));
+    ASSERT_FALSE(s::load(buffer, actual));
 
     ASSERT_EQ(buffer.size(), sizeof(expected));
     ASSERT_EQ(expected, actual);
@@ -75,8 +75,8 @@ TEST(SerializationTest, CanSerializeSignedInteger)
     std::int16_t actual{};
 
     std::vector<std::byte> buffer;
-    s::save(buffer, expected);
-    s::load(buffer, actual);
+    ASSERT_FALSE(s::save(buffer, expected));
+    ASSERT_FALSE(s::load(buffer, actual));
 
     ASSERT_EQ(buffer.size(), sizeof(expected));
     ASSERT_EQ(expected, actual);
@@ -86,8 +86,8 @@ TEST(SerializationTest, CanSerializeSignedInteger)
     std::int32_t actual{};
 
     std::vector<std::byte> buffer;
-    s::save(buffer, expected);
-    s::load(buffer, actual);
+    ASSERT_FALSE(s::save(buffer, expected));
+    ASSERT_FALSE(s::load(buffer, actual));
 
     ASSERT_EQ(buffer.size(), sizeof(expected));
     ASSERT_EQ(expected, actual);
@@ -97,8 +97,8 @@ TEST(SerializationTest, CanSerializeSignedInteger)
     std::int64_t actual{};
 
     std::vector<std::byte> buffer;
-    s::save(buffer, expected);
-    s::load(buffer, actual);
+    ASSERT_FALSE(s::save(buffer, expected));
+    ASSERT_FALSE(s::load(buffer, actual));
 
     ASSERT_EQ(buffer.size(), sizeof(expected));
     ASSERT_EQ(expected, actual);

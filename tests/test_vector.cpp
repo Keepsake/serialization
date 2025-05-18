@@ -15,8 +15,8 @@ TEST(SerializationTest, CanSerializeVectorOfTrivialTypes)
   std::vector<char> actual{};
 
   std::vector<std::byte> buffer;
-  s::save(buffer, expected);
-  s::load(buffer, actual);
+  ASSERT_FALSE(s::save(buffer, expected));
+  ASSERT_FALSE(s::load(buffer, actual));
 
   ASSERT_EQ(expected, actual);
 }
@@ -27,8 +27,8 @@ TEST(SerializationTest, CanSerializeVectorOfNonTrivialTypes)
   std::vector<std::string> actual{};
 
   std::vector<std::byte> buffer;
-  s::save(buffer, expected);
-  s::load(buffer, actual);
+  ASSERT_FALSE(s::save(buffer, expected));
+  ASSERT_FALSE(s::load(buffer, actual));
 
   ASSERT_EQ(expected, actual);
 }
